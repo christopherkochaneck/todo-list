@@ -12,10 +12,11 @@ import { DeleteOutlined as DeleteIcon, Add as AddIcon } from '@material-ui/icons
 import { red } from '@material-ui/core/colors';
 import { FC } from 'react';
 import { LayoutWrapper } from '../components/layout/LayoutWrapper';
+import { history } from '../app';
 
 export const Home: FC = () => {
   const addButton = (
-    <IconButton>
+    <IconButton onClick={() => history.push('/add')}>
       <AddIcon />
     </IconButton>
   );

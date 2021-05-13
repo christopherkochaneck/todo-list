@@ -1,5 +1,5 @@
 import { AppBar, Toolbar, IconButton, Typography } from '@material-ui/core';
-import { ArrowLeftRounded } from '@material-ui/icons';
+import { ArrowBackRounded } from '@material-ui/icons';
 import React, { FC } from 'react';
 import { history } from '../../app';
 
@@ -20,7 +20,7 @@ export const Navbar: FC<Props> = (props) => {
       style={{ marginRight: 16 }}
       onClick={() => history.goBack()}
     >
-      <ArrowLeftRounded />
+      <ArrowBackRounded />
     </IconButton>
   );
 

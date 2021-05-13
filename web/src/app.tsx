@@ -7,6 +7,7 @@ import { Router, Switch, Route } from 'react-router-dom';
 
 //pages
 import { Home } from './pages/Home';
+import { AddItem } from './pages/AddItem';
 
 const theme = createMuiTheme({
   palette: {
@@ -22,6 +23,7 @@ const App: FC = () => {
         <CssBaseline />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route exact path="/add" component={AddItem} />
         </Switch>
       </ThemeProvider>
     </Router>
