@@ -40,7 +40,9 @@
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "lodash": "^4.17.21",
+    "moment": "^2.29.1",
     "tw-express-http-logger": "^1.0.3",
-    "tw-logger": "^1.1.31"
+    "tw-logger": "^1.1.31",
+    "uuidv4": "^6.2.8"
   }
 }

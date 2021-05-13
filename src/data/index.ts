@@ -29,4 +29,8 @@ export function readItems(): Item[] {
   return data;
 }
 
-export function writeItems(data: Item[]) {}
+export function writeItems(data: Item[]) {
+  const content = JSON.stringify(data);
+  fs.writeFileSync(fileName, content);
+  return data;
+}

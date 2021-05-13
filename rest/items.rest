@@ -4,18 +4,30 @@
 
 # GET all items
 
-GET {{host}}/1
+GET {{host}}/5dd24993-2961-4c82-bc4a-685c7900ecdb
 
 ###############################################
 
 # Add item
 
+POST {{host}}
+Content-Type: application/json
+
+{
+  "title": "New Item",
+  "description": "New Item Description"
+}
 ###############################################
 
 # Update item
+PATCH {{host}}/5dd24993-2961-4c82-bc4a-685c7900ecdb
+Content-Type: application/json
 
+{
+  "title": "Modified Item"
+}
 ###############################################
 
 #Delete item
-
+DELETE  {{host}}/2
 ###############################################
