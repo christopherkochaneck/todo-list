@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-
+import { Item } from '../types/item';
 const dataDirectory = path.join('files');
 
 /**The file where the data is stored. */
@@ -17,6 +17,16 @@ export function createDatabase() {
 
   //create file if it does not existr
   if (!fs.existsSync(fileName)) {
-    fs.writeFileSync(fileName, JSON.stringify({}));
+    fs.writeFileSync(fileName, JSON.stringify([]));
   }
 }
+
+export function readItems(): Item[] {
+  // read file
+  const content = fs.readFileSync(fileName).toString();
+  // parse file
+  const data: Item[] = JSON.parse(content);
+  return data;
+}
+
+export function writeItems(data: Item[]) {}

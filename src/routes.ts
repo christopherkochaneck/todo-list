@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { getApiStatus } from './controllers/api/get-api-status';
-
+import { getItemByID } from './controllers/items/get-item-by-id';
+import { getItems } from './controllers/items/get-items';
 const api = Router();
 
 /**
@@ -13,5 +14,6 @@ const api = Router();
  */
 
 api.get('/', getApiStatus);
-
+api.get('/items', getItems);
+api.get('/items/:id', getItemByID);
 export default api;
