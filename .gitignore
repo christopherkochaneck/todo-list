@@ -1,0 +1,15 @@
+#Dependencies
+node_modules/
+
+#Built files
+dist/
+
+#Static files
+files/
+
+#logs
+logs/
+!flogs/.htaccess
+
+#Misc
+.DS_Store

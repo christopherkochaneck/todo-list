@@ -1,0 +1,31 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "",
+  "author": {
+    "name": "Christopher Kochaneck",
+    "email": "chrissiko02@gmail.com"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "dev": "nodemon --config \"./nodemon.json\"",
+    "prebuild": "rm -rf \"./dist\" && npm version patch",
+    "build": "cd \"src\" && tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christopherkochaneck/todo-list.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christopherkochaneck/todo-list/issues"
+  },
+  "homepage": "https://github.com/christopherkochaneck/todo-list#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  }
+}
