@@ -7,14 +7,13 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  Button,
 } from '@material-ui/core';
 import { DeleteOutlined as DeleteIcon, Add as AddIcon } from '@material-ui/icons';
 import { red } from '@material-ui/core/colors';
 import { FC } from 'react';
 import { LayoutWrapper } from '../components/layout/LayoutWrapper';
 import { history } from '../app';
-import { ItemDetails } from '../components/ÎtemDetails';
+import { ItemDetails } from '../components/ItemDetails';
 import { AboutDialog } from '../components/dialogs/AboutDialog';
 
 export const Home: FC = () => {
