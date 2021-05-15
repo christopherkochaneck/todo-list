@@ -1,4 +1,5 @@
 import {
+  Badge,
   Button,
   Dialog,
   DialogActions,
@@ -6,17 +7,32 @@ import {
   DialogTitle,
   Grid,
   Link,
+  IconButton,
 } from '@material-ui/core';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useApiStatus } from '../../contexts/apiStatus';
+import { red, green } from '@material-ui/core/colors';
+import * as Icons from '@material-ui/icons';
+import { CustomBadge } from '../common/CustomBadge';
 
 export const AboutDialog: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const apiStatus = useApiStatus();
 
+  useEffect(() => {
+    apiStatus.getStatus();
+
+    //eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <React.Fragment>
-      <Button onClick={() => setOpen(true)}>About</Button>
+      <IconButton onClick={() => setOpen(true)} disabled={!apiStatus.status}>
+        <CustomBadge loading={apiStatus.loading} status={apiStatus.status}>
+          <Icons.InfoOutlined />
+        </CustomBadge>
+      </IconButton>
+
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>About</DialogTitle>
         <DialogContent>
