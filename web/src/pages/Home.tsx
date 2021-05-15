@@ -8,7 +8,7 @@ import { ItemListItem } from '../components/items/ItemListItem';
 import { data } from '../data';
 export const Home: FC = () => {
   const addButton = (
-    <IconButton onClick={() => history.push('/add')}>
+    <IconButton onClick={() => history.push('/items/add')}>
       <AddIcon />
     </IconButton>
   );
