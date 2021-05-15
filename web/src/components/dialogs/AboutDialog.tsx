@@ -1,34 +1,61 @@
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Grid,
+  Link,
+} from '@material-ui/core';
 import React, { FC, useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid } from '@material-ui/core';
+import { useApiStatus } from '../../contexts/apiStatus';
 
 export const AboutDialog: FC = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const apiStatus = useApiStatus();
 
   return (
     <React.Fragment>
       <Button onClick={() => setOpen(true)}>About</Button>
-      <Dialog open={open} onClose={() => setOpen(false)} maxWidth="sm" fullWidth>
+      <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>About</DialogTitle>
         <DialogContent>
           <Grid container spacing={2}>
+            {/* Version */}
             <Grid item xs={6}>
-              <strong>Api Version</strong>
+              <strong>API Version</strong>
             </Grid>
             <Grid item xs={6}>
-              0.0.0
+              {apiStatus.version}
             </Grid>
+
+            {/* Author */}
             <Grid item xs={6}>
               <strong>Author</strong>
             </Grid>
             <Grid item xs={6}>
-              Christopher Kochaneck
+              {apiStatus.author.url ? (
+                <Link href={apiStatus.author.url} rel="noreferrer" color="secondary">
+                  {apiStatus.author.name}
+                </Link>
+              ) : (
+                apiStatus.author.name
+              )}
             </Grid>
-            <Grid item xs={6}>
-              <strong>Support</strong>
-            </Grid>
-            <Grid item xs={6}>
-              support@123.de
-            </Grid>
+
+            {/* Support */}
+            {apiStatus.author.email && (
+              <>
+                <Grid item xs={6}>
+                  <strong>Support</strong>
+                </Grid>
+                <Grid item xs={6}>
+                  <Link href={`mailto:${apiStatus.author.email}`} color="secondary">
+                    {apiStatus.author.email}
+                  </Link>
+                </Grid>
+              </>
+            )}
           </Grid>
         </DialogContent>
         <DialogActions>
