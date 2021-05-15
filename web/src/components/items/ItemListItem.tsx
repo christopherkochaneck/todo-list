@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import {
   ListItemIcon,
   ListItem,
@@ -9,26 +9,40 @@ import {
 } from '@material-ui/core';
 import { DeleteOutlined as DeleteIcon } from '@material-ui/icons';
 import { red } from '@material-ui/core/colors';
+import { Item } from '../../types/item';
+import { useHistory } from 'react-router';
 
-interface Props {}
+interface Props {
+  item: Item;
+}
 
-export const ItemListItem: FC<Props> = () => {
+export const ItemListItem: FC<Props> = (props) => {
+  const history = useHistory();
+  const [done, setDone] = useState<boolean>(false);
+  const { item } = props;
   return (
-    <ListItem button onClick={() => {}}>
-      <ListItemIcon>
+    <ListItem
+      button
+      onClick={() => {
+        history.push(`/items/details/${item.id}`);
+      }}
+    >
+      <ListItemIcon
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <Checkbox
           edge="start"
-          checked={false}
           tabIndex={-1}
           inputProps={{ 'aria-labelledby': 'ITEM-X' }}
+          checked={done}
+          onChange={(e) => {
+            setDone(e.currentTarget.checked);
+          }}
         />
       </ListItemIcon>
-      <ListItemText id="ITEM-X" primary={'TITLE'}></ListItemText>
-      <ListItemSecondaryAction>
-        <IconButton>
-          <DeleteIcon style={{ color: red[500] }} />
-        </IconButton>
-      </ListItemSecondaryAction>
+      <ListItemText id={`${item.id}`} primary={`${item.title}`}></ListItemText>
     </ListItem>
   );
 };

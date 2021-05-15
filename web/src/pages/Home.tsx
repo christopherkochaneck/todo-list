@@ -5,7 +5,7 @@ import { LayoutWrapper } from '../components/layout/LayoutWrapper';
 import { history } from '../app';
 import { AboutDialog } from '../components/dialogs/AboutDialog';
 import { ItemListItem } from '../components/items/ItemListItem';
-
+import { data } from '../data';
 export const Home: FC = () => {
   const addButton = (
     <IconButton onClick={() => history.push('/add')}>
@@ -16,11 +16,10 @@ export const Home: FC = () => {
   return (
     <LayoutWrapper actions={[addButton, <AboutDialog />]}>
       <Container maxWidth="sm" style={{ padding: 0 }}>
-        {/* <ItemDetails/> */}
         <List>
-          <ItemListItem />
-          <ItemListItem />
-          <ItemListItem />
+          {data.map((item) => {
+            return <ItemListItem key={item.id} item={item} />;
+          })}
         </List>
       </Container>
     </LayoutWrapper>
