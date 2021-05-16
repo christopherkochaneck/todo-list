@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core';
 import React, { FC, useEffect, useState } from 'react';
 import { useApiStatus } from '../../contexts/apiStatus';
-import { red, green } from '@material-ui/core/colors';
 import * as Icons from '@material-ui/icons';
 import { CustomBadge } from '../common/CustomBadge';
 

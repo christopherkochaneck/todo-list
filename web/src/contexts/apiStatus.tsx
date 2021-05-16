@@ -72,7 +72,7 @@ export const ApiStatusProvider: FC = (props) => {
       email: authorEmail,
       url: authorURL,
     },
-    getStatus: getStatus,
+    getStatus,
   };
 
   return <CtxProvider value={contextValue}>{props.children}</CtxProvider>;
