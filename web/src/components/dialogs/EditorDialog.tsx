@@ -12,19 +12,24 @@ import { FC, FormEvent, useState } from 'react';
 import * as Icons from '@material-ui/icons';
 import { Item } from '../../types/item';
 import { green, red } from '@material-ui/core/colors';
-
+import { useItems } from '../../contexts/getItems';
 interface Props {
   item: Item;
 }
+
 export const EditorDialog: FC<Props> = (props) => {
   const { item } = props;
+  const items = useItems();
   const [open, setOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string>(item.title);
   const [description, setDescription] = useState<string>(item.description || '');
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('submitting');
+    const result = await items.updateItem(item.id, { title, description });
+    if (result) {
+      setOpen(false);
+    }
   };
 
   const handleReset = (e: FormEvent<HTMLFormElement>) => {

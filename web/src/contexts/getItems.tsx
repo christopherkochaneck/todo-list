@@ -1,9 +1,9 @@
-import { NightsStayOutlined } from '@material-ui/icons';
 import { AxiosResponse } from 'axios';
-import { FC, useState, VoidFunctionComponent } from 'react';
+import { FC, useState } from 'react';
 import { createCtx } from '.';
 import { http } from '../services/http';
 import { Item } from '../types/item';
+import moment from 'moment';
 
 interface AddItemData {
   title?: string;
@@ -29,7 +29,13 @@ interface ItemContextInterface {
   deleteItem: (id: string) => Promise<boolean>;
 }
 
-export const [getItems, CtxProvider] = createCtx<ItemContextInterface>();
+export const [useItems, CtxProvider] = createCtx<ItemContextInterface>();
+
+function sortByDate(a: Item, b: Item): number {
+  const dateA = moment(a.createdAt);
+  const dateB = moment(b.createdAt);
+  return dateA === dateB ? 0 : dateA.isBefore(dateB) ? 1 : -1;
+}
 
 export const ItemsProvider: FC = (props) => {
   const [data, setData] = useState<Item[]>([]);
@@ -41,7 +47,7 @@ export const ItemsProvider: FC = (props) => {
       setLoading(true);
       const response = await http.get<{}, AxiosResponse<Item[]>>('/items');
       console.log(response.data);
-      setData(response.data);
+      setData(response.data.sort(sortByDate));
       return;
     } catch (err) {
       setData([]);
@@ -77,6 +83,7 @@ export const ItemsProvider: FC = (props) => {
       setLoading(false);
     }
   };
+
   const updateDone = async (): Promise<boolean> => {
     try {
       return true;
@@ -85,10 +92,12 @@ export const ItemsProvider: FC = (props) => {
     }
   };
 
-  const updateItem = async (id: string, data: UpdateItemData): Promise<boolean> => {
+  const updateItem = async (id: string, updateData: UpdateItemData): Promise<boolean> => {
     try {
       setLoading(true);
-      const response = await http.patch<any, AxiosResponse<Item>>(`/items/${id}`, data);
+      const response = await http.patch<any, AxiosResponse<Item>>(`/items/${id}`, updateData);
+      const updatedItems = data.filter((x) => x.id !== id);
+      setData([response.data, ...updatedItems].sort(sortByDate));
       return true;
     } catch (err) {
       setError(err.message);

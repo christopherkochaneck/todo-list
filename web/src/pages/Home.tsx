@@ -5,9 +5,9 @@ import { LayoutWrapper } from '../components/layout/LayoutWrapper';
 import { history } from '../app';
 import { AboutDialog } from '../components/dialogs/AboutDialog';
 import { ItemListItem } from '../components/items/ItemListItem';
-import { getItems } from '../contexts/getItems';
+import { useItems } from '../contexts/getItems';
 export const Home: FC = () => {
-  const items = getItems();
+  const items = useItems();
 
   useEffect(() => {
     items.getItems();

@@ -13,33 +13,46 @@ import moment from 'moment';
 import { FC, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { LayoutWrapper } from '../components/layout/LayoutWrapper';
-import { data } from '../data';
 import { Item } from '../types/item';
-
+import { useItems } from '../contexts/getItems';
 interface QueryParams {
   id: string;
 }
 
 export const ItemDetails: FC = () => {
+  const items = useItems();
   const history = useHistory();
   const params = useParams<QueryParams>();
   const [item, setItem] = useState<Item | null>(null);
 
   useEffect(() => {
-    // find item by id
-    const item: Item = data.filter((x) => x.id === params.id)[0] || null;
+    const findItem = async () => {
+      // find item by id
+      const currentItem = await items.getItem(params.id);
 
-    // redirect back to items if item was not found
-    if (!item) {
-      history.push('/items');
-    }
+      // redirect back to items if item was not found
+      if (!currentItem) {
+        history.push('/items');
+        return;
+      }
 
-    setItem(item);
+      setItem(currentItem);
+    };
+    findItem();
+    //eslint-disable-next-line
   }, [history, params.id]);
+
   if (!item) return null;
 
+  const handleDelete = async () => {
+    const result = await items.deleteItem(params.id);
+    if (result) {
+      history.push('/items');
+    }
+  };
+
   const deleteButton = (
-    <IconButton>
+    <IconButton onClick={handleDelete}>
       <Tooltip title="Delete item">
         <Icons.DeleteOutlined style={{ color: red[500] }} />
       </Tooltip>
