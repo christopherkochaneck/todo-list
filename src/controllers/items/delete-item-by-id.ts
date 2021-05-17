@@ -18,5 +18,5 @@ export function deleteItemByID(req: Request<Params>, res: Response) {
 
   const filteredItems = items.filter((x) => x.id !== req.params.id);
   writeItems(filteredItems);
-  return res.status(200).send(`Item with id ${req.params.id} has been deleted`);
+  return res.status(200).send(filteredItems);
 }
