@@ -75,6 +75,7 @@ export const ItemsProvider: FC = (props) => {
     try {
       setLoading(true);
       const response = await http.post<any, AxiosResponse<Item>>('/items', addData);
+      setData([response.data, ...data].sort(sortByDate));
       return true;
     } catch (err) {
       setError(err.message);
@@ -84,11 +85,18 @@ export const ItemsProvider: FC = (props) => {
     }
   };
 
-  const updateDone = async (): Promise<boolean> => {
+  const updateDone = async (id: string, done: boolean): Promise<boolean> => {
     try {
+      setLoading(true);
+      const response = await http.patch<any, AxiosResponse<Item>>(`/items/${id}`, { done });
+      const updatedItems = data.filter((x) => x.id !== id);
+      setData([response.data, ...updatedItems].sort(sortByDate));
       return true;
     } catch (err) {
+      setError(err.message);
       return false;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -110,7 +118,9 @@ export const ItemsProvider: FC = (props) => {
   const deleteItem = async (id: string): Promise<boolean> => {
     try {
       setLoading(true);
-      const response = await http.delete<any, AxiosResponse<Item>>(`/items/${id}`);
+      const response = await http.delete<any, AxiosResponse<Item[]>>(`/items/${id}`);
+      console.log(response);
+      setData(response.data.sort(sortByDate));
       return true;
     } catch (err) {
       setError(err.message);
