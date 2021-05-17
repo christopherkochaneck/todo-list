@@ -8,6 +8,7 @@ interface Params {
 
 export function deleteItemByID(req: Request<Params>, res: Response) {
   logger.controller('items', 'deleteItemByID');
+
   const items = readItems();
 
   //find item to delete
