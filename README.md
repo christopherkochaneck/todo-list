@@ -1,3 +1,3 @@
 # todo-list
 
-A small React Project to get used to the Framework.
+A small React Project including Frontend and Backend to get used to the Framework and Typescript.
