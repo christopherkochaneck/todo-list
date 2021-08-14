@@ -8,7 +8,7 @@ export const AddItem: FC = () => {
   const items = useItems();
   const history = useHistory();
   const [title, setTitle] = useState<string>('');
-  const [description, setDiscription] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -50,7 +50,7 @@ export const AddItem: FC = () => {
                 placeholder="Item Description"
                 required
                 value={description}
-                onChange={(e) => setDiscription(e.currentTarget.value)}
+                onChange={(e) => setDescription(e.currentTarget.value)}
               />
             </Grid>
             <Grid item xs={12}>
